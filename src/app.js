@@ -7,7 +7,6 @@ const { App } = pkg;
 import { formatMessage } from './formatMessage.js';
 import { getWordOfTheDay } from './getWordOfTheDay.js';
 import { getGif } from "./getGif.js";
-import {wordList} from "./wordList.js";
 
 const app = new App({
     token: process.env.TOKEN,
