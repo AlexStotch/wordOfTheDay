@@ -34,12 +34,7 @@ export function formatMessage(gif, word) {
                     },
                     value: 'click_me_123',
                     action_id: "switch_word"
-                }
-            ]
-        },
-        {
-            type: 'actions',
-            elements: [
+                },
                 {
                     type: 'button',
                     text: {
@@ -49,6 +44,16 @@ export function formatMessage(gif, word) {
                     },
                     value: "click_me_1234",
                     action_id: "switch_gif"
+                },
+                {
+                    type: 'button',
+                    text: {
+                        type: 'plain_text',
+                        text: 'Delete Message',
+                        emoji: true
+                    },
+                    value: "click_me_12345",
+                    action_id: "delete"
                 }
             ]
         },

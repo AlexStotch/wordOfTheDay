@@ -7,6 +7,7 @@ const { App } = pkg;
 import { formatMessage } from './formatMessage.js';
 import { getWordOfTheDay } from './getWordOfTheDay.js';
 import { getGif } from "./getGif.js";
+import {wordList} from "./wordList.js";
 
 const app = new App({
     token: process.env.TOKEN,
@@ -28,8 +29,8 @@ async function deleteMessage(channelId, messageId) {
     }
 }
 
-async function publishNewWOD(channelId) {
-    const word = await getWordOfTheDay();
+async function publishNewWOD(channelId, previousWord = null) {
+    const word = previousWord || await getWordOfTheDay();
     const gif = await getGif(word);
     //https://www.npmjs.com/package/node-schedule
     try {
@@ -57,11 +58,36 @@ async function publishNewWOD(channelId) {
         }
     });
 
+    app.action('delete', async (event) => {
+        try {
+            const container = event.body.container;
+            await deleteMessage(container.channel_id, container.message_ts);
+        } catch (error) {
+            console.error(error);
+        }
+    });
+
     app.action('switch_word', async (event) => {
         try {
             const container = event.body.container;
             await deleteMessage(container.channel_id, container.message_ts);
             await publishNewWOD(container.channel_id);
+        } catch (error) {
+            console.error(error);
+        }
+    });
+
+    app.action('switch_gif', async (event) => {
+        let word = null;
+        event.body.message.blocks.forEach(block => {
+            if (block.hasOwnProperty('text')) {
+                word = block.text.text;
+            }
+        })
+        try {
+            const container = event.body.container;
+            await deleteMessage(container.channel_id, container.message_ts);
+            await publishNewWOD(container.channel_id, word);
         } catch (error) {
             console.error(error);
         }
