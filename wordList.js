@@ -1,4 +1,4 @@
-exports.wordList = [
+export const wordList = [
 'literature',
 'problem',
 'software',
