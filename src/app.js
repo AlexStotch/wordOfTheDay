@@ -28,8 +28,8 @@ async function deleteMessage(channelId, messageId) {
     }
 }
 
-async function publishNewWOD(channelId, previousWord = null) {
-    const word = previousWord || await getWordOfTheDay();
+async function publishNewWOD(channelId, userWord = null) {
+    const word = userWord || await getWordOfTheDay();
     const gif = await getGif(word);
     //https://www.npmjs.com/package/node-schedule
     try {
@@ -50,6 +50,12 @@ async function publishNewWOD(channelId, previousWord = null) {
 
     app.event('app_mention', async ({ event}) => {
         try {
+            const input = event.text;
+            const endUserId = input.indexOf('>');
+            const userWord = input.slice(endUserId + 1);
+            if (userWord.length > 3) {
+                return await publishNewWOD(event.channel, userWord);
+            }
             await publishNewWOD(event.channel);
         }
         catch (error) {

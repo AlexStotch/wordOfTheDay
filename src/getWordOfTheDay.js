@@ -1,4 +1,4 @@
-import { wordList } from './wordList.js'
+import { wordList } from './words/wordList.js'
 
 export async function getWordOfTheDay() {
     // const now = new Date();
