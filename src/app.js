@@ -39,15 +39,15 @@ async function updateWOD(channelId, messageTs, word = null) {
     });
 }
 
-async function publishNewWOD(channelId) {
-    const word = await getWordOfTheDay();
-    const gif = await getGif(word);
+async function publishNewWOD(channelId, word = null) {
+    const wod = word || await getWordOfTheDay();
+    const gif = await getGif(wod);
     //https://www.npmjs.com/package/node-schedule
     try {
         await app.client.chat.postMessage({
             token: process.env.TOKEN,
             channel: channelId,
-            blocks: formatMessage(gif, word)
+            blocks: formatMessage(gif, wod)
         });
     }
     catch (error) {
