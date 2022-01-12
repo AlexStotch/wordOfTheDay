@@ -4,9 +4,10 @@ dotenv.config()
 import pkg from '@slack/bolt';
 const { App } = pkg;
 
-import { formatMessage } from './formatMessage.js';
-import { getWordOfTheDay } from './getWordOfTheDay.js';
-import { getGif } from "./getGif.js";
+import {postNewWOD} from "./actions/postWOD.js";
+import {deleteMessage} from "./actions/deleteWOD.js";
+import {updateWOD} from "./actions/updateWOD.js";
+import {getWODFromEvent} from "./utils/getWODFromEvent.js";
 
 const app = new App({
     token: process.env.TOKEN,
@@ -15,49 +16,8 @@ const app = new App({
     socketMode: true,
 });
 
-
-async function deleteMessage(channelId, messageId) {
-    try {
-        await app.client.chat.delete({
-            channel: channelId,
-            ts: messageId
-        });
-    }
-    catch (error) {
-        console.error(error);
-    }
-}
-
-async function updateWOD(channelId, messageTs, word = null) {
-    const wod = word || await getWordOfTheDay();
-    const gif = await getGif(wod);
-    await app.client.chat.update({
-        token: process.env.TOKEN,
-        channel: channelId,
-        ts: messageTs,
-        blocks: formatMessage(gif, wod)
-    });
-}
-
-async function publishNewWOD(channelId, word = null) {
-    const wod = word || await getWordOfTheDay();
-    const gif = await getGif(wod);
-    //https://www.npmjs.com/package/node-schedule
-    try {
-        await app.client.chat.postMessage({
-            token: process.env.TOKEN,
-            channel: channelId,
-            blocks: formatMessage(gif, wod)
-        });
-    }
-    catch (error) {
-        console.error(error);
-    }
-}
-
 (async () => {
     await app.start(process.env.PORT);
-    console.log('⚡️ Bolt app is running!');
 
     app.event('app_mention', async ({ event}) => {
         try {
@@ -65,9 +25,9 @@ async function publishNewWOD(channelId, word = null) {
             const endUserId = input.indexOf('>');
             const userWord = input.slice(endUserId + 1);
             if (userWord.length > 3) {
-                return await publishNewWOD(event.channel, userWord);
+                return await postNewWOD(app, event.channel, userWord);
             }
-            await publishNewWOD(event.channel);
+            await postNewWOD(app, event.channel);
         }
         catch (error) {
             console.error(error);
@@ -77,7 +37,7 @@ async function publishNewWOD(channelId, word = null) {
     app.action('delete', async (event) => {
         try {
             const container = event.body.container;
-            await deleteMessage(container.channel_id, container.message_ts);
+            await deleteMessage(app, container.channel_id, container.message_ts);
         } catch (error) {
             console.error(error);
         }
@@ -86,23 +46,17 @@ async function publishNewWOD(channelId, word = null) {
     app.action('switch_word', async (event) => {
         try {
             const container = event.body.container;
-            await updateWOD(container.channel_id, container.message_ts);
+            await updateWOD(app, container.channel_id, container.message_ts);
         } catch (error) {
             console.error(error);
         }
     });
 
     app.action('switch_gif', async (event) => {
-        let word = null;
-        const message = event.body.message;
-        const container = event.body.container;
-        message.blocks.forEach(block => {
-            if (block.hasOwnProperty('text')) {
-                word = block.text.text;
-            }
-        })
         try {
-            await updateWOD(container.channel_id, container.message_ts, word);
+            const word = getWODFromEvent(event);
+            const container = event.body.container;
+            await updateWOD(app, container.channel_id, container.message_ts, word);
         } catch (error) {
             console.error(error);
         }
