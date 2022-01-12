@@ -8,6 +8,7 @@ import {postNewWOD} from "./actions/postWOD.js";
 import {deleteMessage} from "./actions/deleteWOD.js";
 import {updateWOD} from "./actions/updateWOD.js";
 import {getWODFromEvent} from "./utils/getWODFromEvent.js";
+import {getWODFromInput} from "./utils/getWODFromInput.js";
 
 const app = new App({
     token: process.env.TOKEN,
@@ -21,13 +22,8 @@ const app = new App({
 
     app.event('app_mention', async ({ event}) => {
         try {
-            const input = event.text;
-            const endUserId = input.indexOf('>');
-            const userWord = input.slice(endUserId + 1);
-            if (userWord.length > 3) {
-                return await postNewWOD(app, event.channel, userWord);
-            }
-            await postNewWOD(app, event.channel);
+            const userWord = getWODFromInput(event);
+            await postNewWOD(app, event.channel, userWord);
         }
         catch (error) {
             console.error(error);
