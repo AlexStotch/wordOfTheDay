@@ -48,6 +48,15 @@ const app = new App({
     }
   });
 
+  app.command('/wordOfTheDay', async (event) => {
+    try {
+      // const userWord = getWODFromInput(event);
+      await postNewWOD(app, event.body.channel_id, null);
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
   app.action('switch_gif', async (event) => {
     try {
       const word = getWODFromEvent(event);
