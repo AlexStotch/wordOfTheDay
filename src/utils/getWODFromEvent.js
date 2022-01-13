@@ -1,11 +1,14 @@
-export function getWODFromEvent(event) {
-    let word = null;
-    const message = event.body.message;
-    message.blocks.forEach(block => {
-        if (block.hasOwnProperty('text')) {
-            word = block.text.text;
-        }
-    });
+function getWODFromEvent(event) {
+  let word = null;
+  const { message } = event.body;
+  message.blocks.forEach((block) => {
+    // eslint-disable-next-line no-prototype-builtins
+    if (block.hasOwnProperty('text')) {
+      word = block.text.text;
+    }
+  });
 
-    return word;
+  return word;
 }
+
+export default getWODFromEvent;
