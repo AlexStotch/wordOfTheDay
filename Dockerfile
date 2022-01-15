@@ -7,4 +7,4 @@ COPY package.json .
 RUN npm install
 COPY slack /app
 
-CMD [ "npm", "slack" ]
+CMD [ "npm", "run", "slack" ]
