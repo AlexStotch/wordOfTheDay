@@ -5,6 +5,6 @@ WORKDIR /app
 
 COPY package.json .
 RUN npm install
-COPY src /app
+COPY slack /app
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "slack" ]
