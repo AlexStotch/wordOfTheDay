@@ -6,7 +6,7 @@ import postNewWOD from './actions/postWOD.js';
 import deleteMessage from './actions/deleteWOD.js';
 import updateWOD from './actions/updateWOD.js';
 import getWODFromEvent from './utils/getWODFromEvent.js';
-import getWODFromInput from './utils/getWODFromInput.js';
+import getWordFromAppTag from './utils/getWordFromAppTag.js';
 
 dotenv.config();
 const { App } = pkg;
@@ -21,9 +21,18 @@ const app = new App({
 (async () => {
   await app.start(process.env.PORT);
 
+  app.command('/wordOfTheDay', async (event) => {
+    try {
+      const word = event.body.text;
+      await postNewWOD(app, event.body.channel_id, word);
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
   app.event('app_mention', async ({ event }) => {
     try {
-      const userWord = getWODFromInput(event);
+      const userWord = getWordFromAppTag(event);
       await postNewWOD(app, event.channel, userWord);
     } catch (error) {
       console.error(error);
@@ -43,15 +52,6 @@ const app = new App({
     try {
       const { container } = event.body;
       await updateWOD(app, container.channel_id, container.message_ts);
-    } catch (error) {
-      console.error(error);
-    }
-  });
-
-  app.command('/wordOfTheDay', async (event) => {
-    try {
-      // const userWord = getWODFromInput(event);
-      await postNewWOD(app, event.body.channel_id, null);
     } catch (error) {
       console.error(error);
     }

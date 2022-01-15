@@ -1,7 +1,7 @@
-function getWODFromInput(event) {
+function getWordFromAppTag(event) {
   const input = event.text;
   const endUserId = input.indexOf('>');
   return input.slice(endUserId + 1);
 }
 
-export default getWODFromInput;
+export default getWordFromAppTag;
