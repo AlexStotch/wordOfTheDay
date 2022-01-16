@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon server.js"
   },
-  "author": "",
+  "type": "module",
+  "author": "Alex Picault",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.2",

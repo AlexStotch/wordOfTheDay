@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "app": "nodemon front/app.js",
     "slack": "nodemon app.js"
   },
   "type": "module",
@@ -14,7 +13,6 @@
     "@slack/bolt": "^3.8.1",
     "axios": "^0.24.0",
     "dotenv": "^10.0.0",
-    "express": "^4.17.2",
     "nodemon": "^2.0.15"
   },
   "devDependencies": {
