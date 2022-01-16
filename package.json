@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "app": "nodemon app/app.js",
+    "app": "nodemon front/app.js",
     "slack": "nodemon slack/app.js"
   },
   "type": "module",
