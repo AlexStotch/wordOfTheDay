@@ -6,4 +6,4 @@ services:
       context: .
     image: slackbot
     volumes:
-      - ./:/app
+      - ./:/app/slack

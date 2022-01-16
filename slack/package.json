@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "app": "nodemon front/app.js",
-    "slack": "nodemon slack/app.js"
+    "slack": "nodemon app.js"
   },
   "type": "module",
   "author": "Alex Picault",

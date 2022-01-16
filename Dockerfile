@@ -1,10 +1,11 @@
 FROM node:latest
 
-RUN mkdir /app
-WORKDIR /app
+RUN mkdir /slack
+WORKDIR /slack
 
-COPY package.json .
+COPY slack/package.json .
 RUN npm install
-COPY slack /app
+
+COPY slack /slack
 
 CMD [ "npm", "run", "slack" ]
