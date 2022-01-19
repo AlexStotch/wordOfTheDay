@@ -20,11 +20,14 @@ const app = new App({
 
 (async () => {
   await app.start(process.env.PORT);
+  console.log(`start on port${process.env.PORT}`);
 
-  app.command('/wordOfTheDay', async (event) => {
+  app.command('/wordOfTheDay', async ({ body, ack }) => {
     try {
-      const word = event.body.text;
-      await postNewWOD(app, event.body.channel_id, word);
+      // Acknowledge command request
+      await ack();
+      const word = body.text;
+      await postNewWOD(app, body.channel_id, word);
     } catch (error) {
       console.error(error);
     }

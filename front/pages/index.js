@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 export default function Home() {
 
     const [word, setWord] = useState('');
-    const SERVER_HOST = 'http://localhost:3001';
+    const SERVER_HOST = 'http://localhost:9000';
 
     useEffect(() => {
         const fetchWord = async () => {

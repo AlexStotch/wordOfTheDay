@@ -1,11 +1,11 @@
 import express from 'express';
-import getRandomWOD from '../slack/utils/getRandomWOD.js';
 
 const app = express();
-const PORT = 3001;
+const PORT = 9000;
 
 app.get('/word', async (request, response) => {
-  const word = await getRandomWOD();
+  // const word = await getRandomWOD();
+  const word = 'truc';
   response.header('Access-Control-Allow-Origin', '*');
   response.send({ word });
 });
