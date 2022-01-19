@@ -22,7 +22,7 @@ const app = new App({
   await app.start(process.env.PORT);
   console.log(`start on port${process.env.PORT}`);
 
-  app.command('/wordOfTheDay', async ({ body, ack }) => {
+  app.command('/wordoftheday', async ({ body, ack }) => {
     try {
       // Acknowledge command request
       await ack();
