@@ -1,12 +1,6 @@
 version: '3'
 
 services:
-  slack:
-    build:
-      context: ./slack
-    image: slackbot
-    volumes:
-      - ./slack:/slack
   front:
     build:
       context: ./front

@@ -6,12 +6,14 @@ import {useEffect, useState} from "react";
 export default function Home() {
 
     const [word, setWord] = useState('');
+    const [gif, setGif] = useState('');
     const SERVER_HOST = 'http://localhost:9000';
 
     useEffect(() => {
         const fetchWord = async () => {
             const { data } = await axios.get(`${SERVER_HOST}/word`);
             setWord(data.word);
+            setGif(data.gif);
         }
         fetchWord();
     }, [])
@@ -26,8 +28,10 @@ export default function Home() {
             </Head>
             <main className={styles.main}>
                 <h1 className={styles.title}>
-                    Welcome to Word Of The Day { word }
+                    Welcome to Word Of The Day
                 </h1>
+                <h2> { word } </h2>
+                <img src={gif} alt="word of the day gif" />
             </main>
         </div>
   )

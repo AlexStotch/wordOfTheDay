@@ -11,6 +11,7 @@ async function getGif(wordOfTheDay) {
   const query = baseUrl + wodQuery + apiKey + params;
   const index = Math.floor(Math.random() * LIMIT) + 1;
 
+  console.log(query);
   return axios.get(query)
     .then((response) => {
       const gif = response.data.data[index]?.images?.downsized?.url;

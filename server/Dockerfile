@@ -8,6 +8,4 @@ RUN npm install
 
 COPY . /server
 
-EXPOSE 80
-
-CMD [ "npm", "run", "dev" ]
+CMD [ "npm", "run", "server" ]
