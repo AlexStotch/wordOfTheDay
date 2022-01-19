@@ -1005,7 +1005,7 @@ const wordList = [
   'monitor',
   'mortgage',
   'nurse',
-  'pace			(noun,verb,preposition)',
+  'pace',
   'panic',
   'peak',
   'plane',
