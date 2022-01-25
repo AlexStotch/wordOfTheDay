@@ -8,4 +8,4 @@ RUN npm install
 
 COPY . /server
 
-CMD [ "npm", "run", "server" ]
+CMD [ "npm", "build"]
