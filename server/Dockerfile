@@ -8,4 +8,5 @@ RUN npm install
 
 COPY . /server
 
-CMD [ "npm", "build"]
+EXPOSE 9000
+CMD [ "npm", "run", "server" ]
