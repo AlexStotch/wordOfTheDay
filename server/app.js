@@ -4,7 +4,6 @@ import pkg from '@slack/bolt';
 
 import deleteMessage from './actions/deleteWOD.js';
 import updateWOD from './actions/updateWOD.js';
-import getWODFromEvent from './utils/getWODFromEvent.js';
 import getWordFromAppTag from './utils/getWordFromAppTag.js';
 import postEphemeral from './actions/postEphemeral.js';
 import postMessage from './actions/postMessage.js';
@@ -66,18 +65,18 @@ const app = new App({
 
   app.action('switch_word', async (event) => {
     try {
-      const { container } = event.body;
-      await updateWOD(app, container.channel_id, container.message_ts);
+      const responseUrl = event.body.response_url;
+      await updateWOD(responseUrl);
     } catch (error) {
       console.error(error);
     }
   });
 
-  app.action('switch_gif', async (event) => {
+  app.action('switch_gif', async ({ body }) => {
     try {
-      const word = getWODFromEvent(event);
-      const { container } = event.body;
-      await updateWOD(app, container.channel_id, container.message_ts, word);
+      const word = body.actions[0].value;
+      const responseUrl = body.response_url;
+      await updateWOD(responseUrl, word);
     } catch (error) {
       console.error(error);
     }

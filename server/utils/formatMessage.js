@@ -50,7 +50,7 @@ function formatMessage(gif, word, isEphemeral = true) {
               text: 'Switch Gif',
               emoji: true,
             },
-            value: 'click_me_1234',
+            value: word,
             action_id: 'switch_gif',
           },
           {
