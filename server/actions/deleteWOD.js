@@ -1,8 +1,12 @@
-async function deleteMessage(app, channelId, messageId) {
+import axios from 'axios';
+
+async function deleteMessage(responseUrl) {
   try {
-    await app.client.chat.delete({
-      channel: channelId,
-      ts: messageId,
+    await axios.post(responseUrl, {
+      response_type: 'ephemeral',
+      text: '',
+      replace_original: true,
+      delete_original: true,
     });
   } catch (error) {
     console.error(error);

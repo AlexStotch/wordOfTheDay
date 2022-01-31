@@ -2,11 +2,12 @@
 import dotenv from 'dotenv';
 import pkg from '@slack/bolt';
 
-import postNewWOD from './actions/postWOD.js';
 import deleteMessage from './actions/deleteWOD.js';
 import updateWOD from './actions/updateWOD.js';
 import getWODFromEvent from './utils/getWODFromEvent.js';
 import getWordFromAppTag from './utils/getWordFromAppTag.js';
+import postEphemeral from './actions/postEphemeral.js';
+import postMessage from './actions/postMessage.js';
 
 dotenv.config();
 const { App } = pkg;
@@ -27,7 +28,7 @@ const app = new App({
       // Acknowledge command request
       await ack();
       const word = body.text;
-      await postNewWOD(app, body.channel_id, word);
+      await postEphemeral(app, body.channel_id, body.user_id, word);
     } catch (error) {
       console.error(error);
     }
@@ -36,7 +37,7 @@ const app = new App({
   app.event('app_mention', async ({ event }) => {
     try {
       const userWord = getWordFromAppTag(event);
-      await postNewWOD(app, event.channel, userWord);
+      await postEphemeral(app, event.channel_id, event.user_id, userWord);
     } catch (error) {
       console.error(error);
     }
@@ -44,8 +45,20 @@ const app = new App({
 
   app.action('delete', async (event) => {
     try {
-      const { container } = event.body;
-      await deleteMessage(app, container.channel_id, container.message_ts);
+      const responseUrl = event.body.response_url;
+      await deleteMessage(responseUrl);
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  app.action('send', async ({ body }) => {
+    try {
+      const responseUrl = body.response_url;
+      const channelId = body.container.channel_id;
+      const { gif, word } = JSON.parse(body.actions[0].value);
+      await deleteMessage(responseUrl);
+      await postMessage(app, channelId, gif, word);
     } catch (error) {
       console.error(error);
     }
