@@ -1,19 +1,10 @@
 version: '3'
 
 services:
-  front:
-    build:
-      context: ./front
-    image: frontwod
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./front:/front
-    networks:
-      - net
   server:
     build:
       context: ./server
+      dockerfile: ./Dockerfile
     image: serverwod
     ports:
       - "9000:9000"

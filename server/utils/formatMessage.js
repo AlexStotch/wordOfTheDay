@@ -37,17 +37,16 @@ function formatMessage(gif, word, isEphemeral = true) {
             type: 'button',
             text: {
               type: 'plain_text',
-              text: 'Switch Word',
+              text: 'New Word',
               emoji: true,
             },
-            value: 'click_me_123',
             action_id: 'switch_word',
           },
           {
             type: 'button',
             text: {
               type: 'plain_text',
-              text: 'Switch Gif',
+              text: 'New Gif',
               emoji: true,
             },
             value: word,
@@ -57,10 +56,20 @@ function formatMessage(gif, word, isEphemeral = true) {
             type: 'button',
             text: {
               type: 'plain_text',
+              text: 'Expressions',
+              emoji: true,
+            },
+            value: word,
+            action_id: 'expressions',
+          },
+          {
+            type: 'button',
+            text: {
+              type: 'plain_text',
               text: 'Cancel',
               emoji: true,
             },
-            value: 'click_me_12345',
+            style: 'danger',
             action_id: 'delete',
           },
           {
@@ -70,6 +79,7 @@ function formatMessage(gif, word, isEphemeral = true) {
               text: 'Send',
               emoji: true,
             },
+            style: 'primary',
             value: messageValue,
             action_id: 'send',
           },

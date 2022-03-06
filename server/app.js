@@ -7,6 +7,7 @@ import updateWOD from './actions/updateWOD.js';
 import getWordFromAppTag from './utils/getWordFromAppTag.js';
 import postEphemeral from './actions/postEphemeral.js';
 import postMessage from './actions/postMessage.js';
+import getRandomExpression from './utils/getRandomExpression.js';
 
 dotenv.config();
 const { App } = pkg;
@@ -36,7 +37,7 @@ const app = new App({
   app.event('app_mention', async ({ event }) => {
     try {
       const userWord = getWordFromAppTag(event);
-      await postEphemeral(app, event.channel_id, event.user_id, userWord);
+      await postEphemeral(app, event.channel, event.user, userWord);
     } catch (error) {
       console.error(error);
     }
@@ -67,6 +68,16 @@ const app = new App({
     try {
       const responseUrl = event.body.response_url;
       await updateWOD(responseUrl);
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  app.action('expressions', async (event) => {
+    try {
+      const expression = await getRandomExpression();
+      const responseUrl = event.body.response_url;
+      await updateWOD(responseUrl, expression);
     } catch (error) {
       console.error(error);
     }
