@@ -8,6 +8,7 @@ import getWordFromAppTag from './utils/getWordFromAppTag.js';
 import postEphemeral from './actions/postEphemeral.js';
 import postMessage from './actions/postMessage.js';
 import getRandomExpression from './utils/getRandomExpression.js';
+import getRandomHumanBodyWord from './utils/getRandomHumanBodyWord.js';
 
 dotenv.config();
 const { App } = pkg;
@@ -78,6 +79,22 @@ const app = new App({
       const expression = await getRandomExpression();
       const responseUrl = event.body.response_url;
       await updateWOD(responseUrl, expression);
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  app.action('category', async (event) => {
+    try {
+      const { payload } = event;
+      console.log('eeee', payload);
+      console.log('eeee', payload.selected_option.value);
+
+      const word = payload.selected_option.value === 'expressions'
+        ? await getRandomExpression() : await getRandomHumanBodyWord();
+
+      const responseUrl = event.body.response_url;
+      await updateWOD(responseUrl, word);
     } catch (error) {
       console.error(error);
     }

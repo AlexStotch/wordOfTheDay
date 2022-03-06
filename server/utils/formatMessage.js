@@ -37,7 +37,7 @@ function formatMessage(gif, word, isEphemeral = true) {
             type: 'button',
             text: {
               type: 'plain_text',
-              text: 'New Word',
+              text: 'New Random Word',
               emoji: true,
             },
             action_id: 'switch_word',
@@ -84,6 +84,37 @@ function formatMessage(gif, word, isEphemeral = true) {
             action_id: 'send',
           },
         ],
+      },
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: 'Pick a category from the dropdown list',
+        },
+        accessory: {
+          action_id: 'category',
+          type: 'static_select',
+          placeholder: {
+            type: 'plain_text',
+            text: 'Select an category',
+          },
+          options: [
+            {
+              text: {
+                type: 'plain_text',
+                text: 'Human Body',
+              },
+              value: 'human_body',
+            },
+            {
+              text: {
+                type: 'plain_text',
+                text: 'Expressions',
+              },
+              value: 'expressions',
+            },
+          ],
+        },
       },
     );
   }
