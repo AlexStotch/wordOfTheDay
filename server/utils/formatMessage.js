@@ -56,16 +56,6 @@ function formatMessage(gif, word, isEphemeral = true) {
             type: 'button',
             text: {
               type: 'plain_text',
-              text: 'Expressions',
-              emoji: true,
-            },
-            value: word,
-            action_id: 'expressions',
-          },
-          {
-            type: 'button',
-            text: {
-              type: 'plain_text',
               text: 'Cancel',
               emoji: true,
             },
