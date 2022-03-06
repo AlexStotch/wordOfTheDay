@@ -87,8 +87,6 @@ const app = new App({
   app.action('category', async (event) => {
     try {
       const { payload } = event;
-      console.log('eeee', payload);
-      console.log('eeee', payload.selected_option.value);
 
       const word = payload.selected_option.value === 'expressions'
         ? await getRandomExpression() : await getRandomHumanBodyWord();
