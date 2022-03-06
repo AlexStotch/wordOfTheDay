@@ -106,6 +106,20 @@ function formatMessage(gif, word, isEphemeral = true) {
             {
               text: {
                 type: 'plain_text',
+                text: 'House',
+              },
+              value: 'house',
+            },
+            {
+              text: {
+                type: 'plain_text',
+                text: 'Animals',
+              },
+              value: 'wild_animals',
+            },
+            {
+              text: {
+                type: 'plain_text',
                 text: 'Expressions',
               },
               value: 'expressions',

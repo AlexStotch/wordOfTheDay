@@ -10,6 +10,8 @@ import postMessage from './actions/postMessage.js';
 import getRandomExpression from './utils/getRandomExpression.js';
 import getRandomHumanBodyWord from './utils/getRandomHumanBodyWord.js';
 import getRandomFoodWord from './utils/getRandomFoodWord.js';
+import getRandomHouseWord from './utils/getRandomHouseWord.js';
+import getRandomWildAnimalWord from './utils/getRandomWildAnimalWord.js';
 
 dotenv.config();
 const { App } = pkg;
@@ -25,6 +27,8 @@ const CATEGORIES = {
   human_body: getRandomHumanBodyWord,
   food: getRandomFoodWord,
   expressions: getRandomExpression,
+  house: getRandomHouseWord,
+  wild_animals: getRandomWildAnimalWord,
 };
 
 (async () => {
