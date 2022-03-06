@@ -9,6 +9,7 @@ import postEphemeral from './actions/postEphemeral.js';
 import postMessage from './actions/postMessage.js';
 import getRandomExpression from './utils/getRandomExpression.js';
 import getRandomHumanBodyWord from './utils/getRandomHumanBodyWord.js';
+import getRandomFoodWord from './utils/getRandomFoodWord.js';
 
 dotenv.config();
 const { App } = pkg;
@@ -19,6 +20,12 @@ const app = new App({
   appToken: process.env.SLACK_APP_TOKEN,
   socketMode: true,
 });
+
+const CATEGORIES = {
+  human_body: getRandomHumanBodyWord,
+  food: getRandomFoodWord,
+  expressions: getRandomExpression,
+};
 
 (async () => {
   await app.start(process.env.PORT);
@@ -74,23 +81,11 @@ const app = new App({
     }
   });
 
-  app.action('expressions', async (event) => {
-    try {
-      const expression = await getRandomExpression();
-      const responseUrl = event.body.response_url;
-      await updateWOD(responseUrl, expression);
-    } catch (error) {
-      console.error(error);
-    }
-  });
-
   app.action('category', async (event) => {
     try {
       const { payload } = event;
 
-      const word = payload.selected_option.value === 'expressions'
-        ? await getRandomExpression() : await getRandomHumanBodyWord();
-
+      const word = await CATEGORIES[payload.selected_option.value]();
       const responseUrl = event.body.response_url;
       await updateWOD(responseUrl, word);
     } catch (error) {

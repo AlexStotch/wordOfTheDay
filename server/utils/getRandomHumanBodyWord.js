@@ -1,4 +1,4 @@
-import humanBodyWordList from '../words/humanBody.js';
+import humanBodyWordList from '../words/humanBodyWords.js';
 
 async function getRandomExpression() {
   const wordListIndex = Math.floor(Math.random() * 72) + 1;

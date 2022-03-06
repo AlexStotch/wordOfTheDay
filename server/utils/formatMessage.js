@@ -99,6 +99,13 @@ function formatMessage(gif, word, isEphemeral = true) {
             {
               text: {
                 type: 'plain_text',
+                text: 'Food',
+              },
+              value: 'food',
+            },
+            {
+              text: {
+                type: 'plain_text',
                 text: 'Expressions',
               },
               value: 'expressions',
