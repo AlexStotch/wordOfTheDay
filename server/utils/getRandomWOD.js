@@ -1,7 +1,7 @@
-import wordList from '../words/wordList.js';
+import wordList from '../words/allWordsList.js';
 
 async function getRandomWOD() {
-  const wordListIndex = Math.floor(Math.random() * 1491) + 1;
+  const wordListIndex = Math.floor(Math.random() * wordList.length) + 1;
   return wordList[wordListIndex];
 }
 
