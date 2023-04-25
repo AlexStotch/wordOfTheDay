@@ -5,7 +5,7 @@ const LIMIT = 30;
 async function getGif(wordOfTheDay) {
   const baseUrl = 'http://api.giphy.com/v1/gifs/search?';
   const wodQuery = `q=${wordOfTheDay}`;
-  const apiKey = `&api_key=${process.env.GIPHY_API_KEY}`;
+  const apiKey = `&api_key=0PuBGT8nVKWwtVJbMp5D6dH5516at9Xt`;
   const params = `&limit=${LIMIT}&rating=pg`;
 
   const query = baseUrl + wodQuery + apiKey + params;

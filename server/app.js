@@ -17,9 +17,9 @@ dotenv.config();
 const { App } = pkg;
 
 const app = new App({
-  token: process.env.TOKEN,
-  signingSecret: process.env.SIGNIN_SECRET,
-  appToken: process.env.SLACK_APP_TOKEN,
+  token: 'xoxb-4285058675-2692956156304-MO0Fcr61PZTovjBQKcvYEDrf',
+  signingSecret: 'b13cabbe337c250a7727e8befc33278c',
+  appToken: 'xapp-1-A02LCTVBLDN-2910690173063-97f2d5d0610c46d63e6133f71dc48226e3ec0b50c891eaa95b51b6298b693155',
   socketMode: true,
 });
 
@@ -32,8 +32,7 @@ const CATEGORIES = {
 };
 
 (async () => {
-  await app.start(process.env.PORT);
-  console.log(`start on port${process.env.PORT}`);
+  await app.start(9000);
 
   app.command('/wordoftheday', async ({ body, ack }) => {
     try {
