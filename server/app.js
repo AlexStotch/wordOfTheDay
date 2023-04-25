@@ -17,9 +17,9 @@ dotenv.config();
 const { App } = pkg;
 
 const app = new App({
-  token: 'xoxb-4285058675-2692956156304-079tEKWQG59FyyzU3oTNsQBU',
-  signingSecret: 'b13cabbe337c250a7727e8befc33278c',
-  appToken: 'xapp-1-A02LCTVBLDN-5159730888150-3721ea4988157c9719ddddf93562c70f87141761b85f78e0b1a9f5cfeb900ea8',
+  token: '',
+  signingSecret: '',
+  appToken: '',
   socketMode: true,
 });
 

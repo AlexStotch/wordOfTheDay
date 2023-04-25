@@ -9,7 +9,7 @@ async function postNewWOD(app, channelId, userId, word = null) {
   // https://www.npmjs.com/package/node-schedule
   try {
     await app.client.chat.postEphemeral({
-      token: 'xoxb-4285058675-2692956156304-079tEKWQG59FyyzU3oTNsQBU',
+      token: '',
       channel: channelId,
       user: userId,
       blocks: formatMessage(gif, wod),
