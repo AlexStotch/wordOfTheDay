@@ -1,6 +1,6 @@
 # wordOfTheDay
 
-With this repo and some slack configuration you can get a nice Slack bot. 
+With this repo and some slack configurations you can get a nice Slack bot. 
 You call it in a slack channel by typing `/NameOfYourSlackApp`.
 The bot will help you to build a nice post to define a Word Of The Day.
 
@@ -59,10 +59,11 @@ You can find these token in the general settings of you slack application.
 - appToken: Signing Secret
 - token: Bot User OAuth Token
 
-### 3- Generate and provide Giphy's token
+### 3 - Generate and provide Giphy's token
 
 Finaly. You will need to get a Giphy API key, and add it to the API call.
 In `getGif.js` change by you Giphy api key.
 
 ### Start 
 In the server foler you can run `docker-compose up`
+And run the command `/NameOfYourSlackApp` in a slack channel
