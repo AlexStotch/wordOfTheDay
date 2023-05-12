@@ -4,6 +4,9 @@ With this repo and some slack configuration you can get a nice Slack bot.
 You call it in a slack channel by typing `/NameOfYourSlackApp`.
 The bot will help you to build a nice post to define a Word Of The Day.
 
+![image](https://github.com/AlexStotch/wordOfTheDay/assets/32511699/0622081d-e460-4007-ae8b-20d7ac16fe2f)
+
+
 ### 1- Create your Slack app and set up the App manifest
 You can check this documentation to configure slack app: https://api.slack.com/authentication/basics 
 You will need create a set the App manifest and to configure it this way:
